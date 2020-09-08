@@ -1,0 +1,306 @@
+{% extends 'main_apps/base.html' %}
+{% load staticfiles %}
+{% block title %}
+{{ block.super }}| {{request.user.username}}'s account
+{% endblock %}
+{% block stylesheet %}
+<style>
+  /* USER PROFILE PAGE */
+  .card {
+  margin-top: 20px;
+  padding: 30px;
+  background-color: rgba(214, 224, 226, 0.2);
+  -webkit-border-top-left-radius:5px;
+  -moz-border-top-left-radius:5px;
+  border-top-left-radius:5px;
+  -webkit-border-top-right-radius:5px;
+  -moz-border-top-right-radius:5px;
+  border-top-right-radius:5px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  }
+  .card.hovercard {
+  position: relative;
+  padding-top: 0;
+  overflow: hidden;
+  text-align: center;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, 1);
+  }
+  .card.hovercard .card-background {
+  height: 140px;
+  }
+  .card-background img {
+  -webkit-filter: blur(25px);
+  -moz-filter: blur(25px);
+  -o-filter: blur(25px);
+  -ms-filter: blur(25px);
+  filter: blur(25px);
+  margin-left: -100px;
+  margin-top: -200px;
+  min-width: 130%;
+  }
+  .card.hovercard .useravatar {
+  position: absolute;
+  top: 40px;
+  left: 10;
+  /* right: 0; */
+  }
+  .card.hovercard .useravatar img {
+  width: 100px;
+  height: 100px;
+  max-width: 100px;
+  max-height: 100px;
+  /* -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%; */
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  }
+  .card.hovercard .card-info {
+  position: absolute;
+  bottom: 14px;
+  left: 10px;
+  right: 0;
+  }
+  .card.hovercard .card-info .card-title {
+  padding:0 5px;
+  font-size: 20px;
+  line-height: 1;
+  color: #262626;
+  background-color: rgba(255, 255, 255, 0.1);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  }
+  .card.hovercard .card-info {
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 20px;
+  color: #737373;
+  text-overflow: ellipsis;
+  }
+  .card.hovercard .bottom {
+  padding: 0 20px;
+  margin-bottom: 17px;
+  }
+  .btn-pref .btn {
+  -webkit-border-radius:0 !important;
+  }
+  .shadow{
+  text-shadow: 4px 4px 2px rgba(150, 150, 150, 1);
+  
+  }
+  
+
+</style>
+{%endblock%}
+{% block content %}
+
+
+<div class="page_container">
+    <div class="card hovercard">
+        <div class="card-background">
+             <!--<img class="card-bkimg" src="{% if user.profile_picture %} {{user.profile_picture.url }} {% else %} {% static 'image/idcard.jpg' %} {% endif %}" alt="...">-->
+            <img class="card-bkimg" alt="" src="{{ user.profile_picture.url }}">
+
+        </div>
+        <div class="useravatar">
+            <img alt="" src="{{ user.profile_picture.url }}">
+        </div>
+        <div class="card-info "><span class="text-white text-capitalize bg-dark card-title float-left m-auto">{{user.first_name}} {{user.last_name}}</span>
+        </div>
+    </div>
+
+    <div class="menu">
+        <ul class="nav nav-tabs">
+            <li class="nav-item ">
+                <a href="#" class="nav-link active ">Dashboard</a>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="create-dropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Create
+                </a>
+                <div class="dropdown-menu w3-animate-zoom" aria-labelledby="create-dropdown">
+                    <a class="dropdown-item" href="{% url 'mainapp:create_mes_ad' %}">mes-service</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'mainapp:create_tuition_ad' %}">tuition-service</a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="more-dropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Update
+                </a>
+                <div class="dropdown-menu w3-animate-zoom" aria-labelledby="more-dropdown">
+                    <a class="dropdown-item" href="{% url 'mainapp:update_profile' %}">Edit Profile</a>
+
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{%url 'password_change'%}">Change password</a>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+    <div class="bg-dark">
+    {{p_user.AuthorProfile.profile_picture}}
+    </div>
+    <div class="my-5">{% include 'plugin/message.html' %}</div>
+    <div class="row my-5 ">
+        <div class="col-lg-4  ">
+            <div class="card w3-lime " style="box-shadow: 10px 10px 5px grey;">
+                <div class="card-title w3-center h2 shadow">Availabe Post</div>
+                <div class="card-body ">
+                    <p class="text-center h2 text-secondary">{{post_count}}</p>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-lg-4 ">
+            <div class="card w3-khaki" style="box-shadow: 10px 10px 5px grey;">
+                <div class="card-title w3-center h2 shadow ">Approved Post</div>
+                <div class="card-body ">
+                    <p class="text-center h2 text-secondary">{{approved_post}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card w3-light-blue " style="box-shadow: 10px 10px 5px grey; ">
+                <div class="card-title w3-center h2 shadow">Tuition Profile</div>
+                <div class="card-body ">
+                    {% if check_profile %}
+                    <p class="text-center h2 text-secondary"><i class="fas fa-check " style="color: green;"></i>
+                        verified</p>
+                    {% endif %}
+
+                    {% if is_profile and not check_profile %}
+                    <p class="text-center h2 text-secondary">1</p>
+                    {% endif %}
+                    {% if not is_profile %}
+                    <p class="text-center h2 text-secondary">0</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="jumbotron">
+        <div class="h2 shadow mb-4">My Posts</div>
+        <div class="table-responsive">
+            <table class="w3-table-all">
+                <thead>
+                <tr class="w3-light-grey">
+                    <th>Tittle</th>
+                    <th>Created On</th>
+                    <th>Status</th>
+                    <th>Service</th>
+                    <th>Options</th>
+                </tr>
+                </thead>
+                {% if is_profile %}
+                {% for c in is_profile %}
+                <tr>
+                    <td class="text-truncate">
+                        
+                        <a class="text-primary" href="{{c.get_absolute_url}}" target="_blank">
+                            Tutor_Id #{{c.ad_author.id}}</a>
+                        
+                    </td>
+                    <td>{{c.posted_on|date}}</td>
+                    <td>{% if c.check == False %}
+                        <p class="text-danger">Pending</p>
+                        {% else %}
+                        <p class="text-success">Approved</p>
+                        {% endif %}
+                    </td>
+                    <td>{% if c.active == False %}
+                        <p class="text-danger">Deactivate</p>
+                        {% else %}
+                        <p class="text-success">Active</p>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="{% url 'mainapp:delete_tuition_ad' %}" id="delete_me">
+                                <button class="btn btn-danger btn-sm mr-2">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </a>
+                            <a href="{% url 'mainapp:update_tuition_ad' %}">
+                                <button class="btn btn-success btn-sm">
+                                    <i class="fas fa-edit"><b style="color:white"></b></i>
+                                </button>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+
+                {% endif %}
+
+                {% for p in post %}
+                <tr>
+                    <td class="text-truncate">
+                   
+                        <a class="text-primary" href="{{p.get_absolute_url}}" target="_blank">Mes-Add_Id #{{p.id}}</a>
+                    
+                    </td>
+                    <td>{{p.posted_on|date}}</td>
+                    <td>{% if p.check == False %}
+                        <p class="text-danger">Pending</p>
+                        {% else %}
+                        <p class="text-success">Approved</p>
+                        {% endif %}
+                    </td>
+                    <td>{% if p.active == False %}
+                        <p class="text-danger">Deactivate</p>
+                        {% else %}
+                        <p class="text-success">Active</p>
+                        {% endif %}
+                    </td>
+                    <td>
+
+                        <div class="btn-group">
+                            <a href="{% url 'mainapp:delete_mes_ad' p.id %}" class="delete">
+                                <button class="btn btn-danger btn-sm mr-2">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </a>
+
+                            <a href="{% url 'mainapp:update_mes_ad' p.id p.ad_author.id%}">
+                                <button class="btn btn-success btn-sm">
+                                    <i class="fas fa-edit"><b style="color:white"></b></i>
+                                </button>
+                            </a>
+
+                        </div>
+
+
+                    </td>
+                </tr>
+                {%endfor%}
+            </table>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function (event) {
+        <!--delete confirm-->
+        $('.delete').click(function () {
+        return confirm('Are You Sure  ?');
+        });
+        <!--end -->
+        });
+
+    </script>
+</div>
+
+
+{%endblock%}
+{%block footer%}
+{% include 'plugin/footer.html' %}
+{%endblock%}

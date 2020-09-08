@@ -1,0 +1,18 @@
+{%autoescape off %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+sdlkfjskldfj
+</body>
+</html>
+{%endautoescape%}
+
+{%autoescape off %}
+Hi {{user.username}},
+Thanks for your registration MBSTU Bazar.Please click on the link bellow to confirm your registration.
+http://{{domain}}{%url 'mainapp:activate' uid=uid token=token%}
+{%endautoescape%}

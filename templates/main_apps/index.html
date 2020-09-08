@@ -1,0 +1,198 @@
+{% extends 'main_apps/base.html' %}
+{% load staticfiles %}
+{# {% load mathfilters %} #}
+{% block title %}{{block.super}} {% endblock %}
+
+{% block stylesheet %}
+{% endblock %}
+
+
+{% block slider %}
+    {% include 'plugin/slider.html' %}
+{% endblock %}
+
+{% block banner %}
+    {% include 'plugin/banner.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="new_arrivals">
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    <div class="section_title new_arrivals_title">
+                        <h2>New Arrivals</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col text-center">
+                    <div class="new_arrivals_sorting">
+                        <ul class="arrivals_grid_sorting clearfix button-group filters-button-group">
+                            <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center active is-checked"
+                                data-filter="*">all
+                            </li>
+
+                            {% for i in all_category %}
+                                <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center"
+                                    data-filter=".{{i.name}}">{{ i.name}}
+                                </li>
+                            {% endfor %}
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col">
+                    <div class="product-grid"
+                         data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
+
+                        <!-- mes service -->
+                        {% for p in all_products %}
+
+                            <div class="product-item {{p.category}}">
+                                <div class="product discount product_filter">
+                                    <div class="product_image ">
+                                        <a href="{{p.get_absolute_url}}">
+                                            <img style="height:235px;object-fit:cover;" src="{{ p.image.url }}" alt=""></a>
+                                    </div>
+                                    
+                                    {% if p.brand_new %}
+                                        <div class="product_bubble product_bubble_left product_bubble_green d-flex flex-column align-items-center"><span>new</span></div>
+                                    {% endif %}
+                                    <div class="product_info">
+                                        <h6 class="product_name">{{ p.name }}</h6>
+                                                {% with discount=p.discount%}
+                                        <div class="product_price">{{ p.price }}৳ 
+                                            {% if discount %}
+                                                <span>{{discount }}৳ </span>
+                                            
+                                            {% endif %}
+                                        </div>
+                                        {%endwith%}
+
+                                    </div>
+                                    
+                                </div>
+                                <div class="red_button add_to_cart_button"><a
+                                        href="{{p.get_absolute_url}}">Details</a>
+                                </div>
+                            </div>
+
+                            <!-- Product 2 -->
+                            <!-- Product 10 -->
+
+                        {% empty %}
+                            <div align='center' class="h3 py-2 text-center mt-5 alert-danger">
+                        No Product Available</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--pagination-->
+    <hr style="color: white">
+    {% if all_products.has_other_pages %}
+        <ul class="pagination">
+            {% if all_products.has_previous %}
+                <li class="page-item"><a class="page-link"
+                                         href="?page={{ all_products.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+                <div class="disabled">
+                    <li class="page-item"><span class="page-link">&laquo;</span></li>
+                </div>
+            {% endif %}
+            {% for i in all_products.paginator.page_range %}
+                {% if all_products.number == i %}
+                    <div class="page-item" style="background-color:lightgray;padding: 5px ">
+                        <li><span>{{ i }}</span></li>
+                    </div>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if all_products.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ all_products.next_page_number }}">&raquo;</a>
+                </li>
+            {% else %}
+                <div class="disabled">
+                    <li class="page-item"><span class="page-link">&raquo;</span></li>
+                </div>
+            {% endif %}
+        </ul>
+    {% endif %}
+
+
+
+
+    <!-- Best Sellers -->
+
+    <!--<div class="best_sellers">-->
+    <!--    <div class="container">-->
+    <!--        <div class="row">-->
+    <!--            <div class="col text-center">-->
+    <!--                <div class="section_title new_arrivals_title">-->
+    <!--                    <h2>Best Sellers</h2>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--        <div class="row">-->
+    <!--            <div class="col">-->
+    <!--                <div class="product_slider_container">-->
+    <!--                    <div class="owl-carousel owl-theme product_slider">-->
+
+                            <!-- Slide 1 -->
+
+    <!--                        <div class="owl-item product_slider_item">-->
+    <!--                            <div class="product-item">-->
+    <!--                                <div class="product discount">-->
+    <!--                                    <div class="product_image">-->
+    <!--                                        <img style="height=235px;object-fit=cover"-->
+    <!--                                             src="{% static 'images/product_1.png' %}" alt="">-->
+    <!--                                    </div>-->
+    <!--                                    <div class="favorite favorite_left"></div>-->
+    <!--                                    <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center">-->
+    <!--                                        <span>-$20</span></div>-->
+    <!--                                    <div class="product_info">-->
+    <!--                                        <h6 class="product_name"><a href="single.html">Fujifilm X100T 16 MP Digital-->
+    <!--                                            Camera (Silver)</a></h6>-->
+    <!--                                        <div class="product_price">$520.00<span>$590.00</span></div>-->
+    <!--                                    </div>-->
+    <!--                                </div>-->
+    <!--                            </div>-->
+    <!--                        </div>-->
+
+                            <!-- Slide 2 -->
+
+
+                            <!-- Slide 10 -->
+
+    <!--                    </div>-->
+
+                        <!-- Slider Navigation -->
+
+    <!--                    <div class="product_slider_nav_left product_slider_nav d-flex align-items-center justify-content-center flex-column">-->
+    <!--                        <i class="fa fa-chevron-left" aria-hidden="true"></i>-->
+    <!--                    </div>-->
+    <!--                    <div class="product_slider_nav_right product_slider_nav d-flex align-items-center justify-content-center flex-column">-->
+    <!--                        <i class="fa fa-chevron-right" aria-hidden="true"></i>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
+    </div>
+<!-- Benefit -->
+{% include 'plugin/benefit.html' %}
+
+{% endblock %}
+
+
+
+
+

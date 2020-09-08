@@ -1,0 +1,84 @@
+{% extends 'main_apps/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %}
+    Your Shopping Cart | Checkout
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+    .asteriskField {
+    display: none;
+    }
+    form .alert ul li {
+    list-style: none;
+    }
+    form .alert ul {
+    padding: 0;
+    margin: 0;
+    }
+</style>
+    {%endblock%}
+
+{% block content %}
+
+    <div class="page_container">
+        <div class="row" style="margin-top: 6%">
+            <div class="col-md-7 jumbotron ">
+                <u color="red" class="page-header h5">Shipping Address</u>
+                
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            {{ form.first_name|as_crispy_field }}
+        </div>
+        <div class="form-group col-md-6">
+            {{ form.last_name|as_crispy_field }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form.email|as_crispy_field }}
+    </div>
+    <div class="form-group">
+        {{ form.address|as_crispy_field }}
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            {{ form.contact_no|as_crispy_field }}
+        </div>
+        <div class="form-group col-md-4">
+            {{ form.postal_code|as_crispy_field }}
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary ">Submit Order</button>
+</form>
+                <br>
+            </div>
+            <div class="col-md-1">
+
+            </div>
+            <div class="col-md-4 jumbotron">
+                <div class="page-header h5">
+                    Your Order
+                </div>
+                <ul class="list-group">
+                    {% for item in cart %}
+
+                        <li class="list-group-item ">
+                            {{ item.quantity }}x {{ item.product.name }}
+                            <span>BDT {{ item.total_price }}</span>
+                        </li>
+
+                    {% endfor %}
+                    <li class="list-group-item active">Total Cost: BDT {{ cart.get_total_price }}</li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block footer %}
+    {% include 'plugin/footer.html' %}
+{% endblock %}

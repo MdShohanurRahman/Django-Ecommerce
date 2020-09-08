@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+{% load mathfilters %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>customer order</title>
+    <style>
+        .invoice-box {
+            max-width: 800px;
+            margin: auto;
+            padding: 30px;
+            border: 1px solid #eee;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+            font-size: 16px;
+            line-height: 24px;
+            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            color: #555;
+        }
+
+        .invoice-box table {
+            width: 100%;
+            line-height: inherit;
+            text-align: left;
+        }
+
+        .invoice-box table td {
+            padding: 5px;
+            vertical-align: top;
+        }
+
+        .invoice-box table tr td:nth-child(2) {
+            text-align: right;
+        }
+
+        .invoice-box table tr.top table td {
+            padding-bottom: 20px;
+        }
+
+        .invoice-box table tr.top table td.title {
+            font-size: 45px;
+            line-height: 45px;
+            color: #333;
+        }
+
+        .invoice-box table tr.information table td {
+            padding-bottom: 40px;
+        }
+
+        .invoice-box table tr.heading td {
+            background: #eee;
+            border-bottom: 1px solid #ddd;
+            font-weight: bold;
+        }
+
+        .invoice-box table tr.details td {
+            padding-bottom: 20px;
+        }
+
+        .invoice-box table tr.item td {
+            border-bottom: 1px solid #eee;
+        }
+
+        .invoice-box table tr.item.last td {
+            border-bottom: none;
+        }
+
+        .invoice-box table tr.total td:nth-child(2) {
+            border-top: 2px solid #eee;
+            font-weight: bold;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .invoice-box table tr.top table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+
+            .invoice-box table tr.information table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+        }
+
+        /** RTL **/
+        .rtl {
+            direction: rtl;
+            font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        }
+
+        .rtl table {
+            text-align: right;
+        }
+
+        .rtl table tr td:nth-child(2) {
+            text-align: left;
+        }
+
+    </style>
+</head>
+<body>
+<!--{% for item in order %}
+{{ forloop.counter }}-{{ item.product }}({{ item.quantity }}* {{ item.price }}) {{ item.quantity|mul:item.price }} <br>
+{% endfor %}-->
+
+
+<div class="page_container">
+    <div class="invoice-box">
+    <table cellpadding="0" cellspacing="0">
+        <tr class="top">
+            <td colspan="2">
+                <table>
+                    <tr>
+                        <td class="title">
+                            <img src="{% static 'images/logo2.png' %}" class="rounded-top rounded-bottom"
+                                 style="max-width:150px;">
+                        </td>
+
+                        <td>
+                            Invoice #: {{ order_id}}<br>
+                            {{ order_id.created}}<br>
+                            <span style="color:red">{{order_id.paid}}</span>
+
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr class="information">
+            <td colspan="2">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="lead">
+                                <strong><ins>Billed To:</ins></strong><br>
+                                <i class="far fa-user"> {{order_id.first_name}} &nbsp;{{order_id.last_name}}</i><br>
+                                <i class="fas fa-mobile-alt"> {{order_id.contact_no}}</i><br>
+                                <i class="far fa-envelope-open"> {{order_id.email}}</i>
+                            </div>
+
+                        </td>
+
+                        <td>
+                            <strong><ins>Shipped To:</ins></strong><br>
+                            <i class="fas fa-map-marker-alt"> {{order_id.address}}</i><br>
+                            {{order_id.city}}
+                            {{order_id.postal_code}}
+
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr class="heading">
+            <td>
+                Payment Method
+            </td>
+
+            <td>
+                Cash On Delivery
+            </td>
+        </tr>
+
+        <tr class="details">
+            <td>
+
+            </td>
+
+            <td>
+
+            </td>
+        </tr>
+
+        <tr class="heading">
+            <td>
+                Item
+            </td>
+
+            <td>
+                Price
+            </td>
+        </tr>
+
+        {% for item in order %}
+        <tr class="item">
+            <td>
+                {{ item.product }} X {{ item.quantity }}
+            </td>
+
+            <td>
+                {{ item.get_cost }}
+            </td>
+        </tr>
+        {% endfor %}
+
+
+        <tr class="item">
+            <td class="text-success">
+                Tax
+            </td>
+
+            <td class="text-success">
+                BDT 0.00
+            </td>
+        </tr>
+        <tr class="item">
+            <td class="text-success">
+                Shipping
+            </td>
+
+            <td class="text-success">
+                BDT 0.00
+            </td>
+        </tr>
+
+
+        <tr class="total">
+            <td></td>
+
+            <td>
+                Total: BDT {{ order_id.get_total_cost }}
+            </td>
+        </tr>
+    </table>
+    <table width="510" border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+        <tr>
+            <td style="color:#404041;font-size:12px;line-height:16px;padding:5px 15px 10px 10px">
+                <div>
+                    Kind regards,<br>
+                    <strong><a href="#" target="_blank">mbstubazar.com</a></strong>
+                </div>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+</div>
+
+</body>
+</html>

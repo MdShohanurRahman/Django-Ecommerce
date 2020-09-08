@@ -1,0 +1,145 @@
+{% extends 'main_apps/base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block title %}
+{{ block.super }}| pre-order
+{% endblock %}
+{% block stylesheet %}
+<style>
+</style>
+{%endblock%}
+{% block content %}
+<div class="page_container">
+
+    <div class="container">
+        <div class="h4 text-center">AliExpress Pre Order</div>
+    <div class="accordion" id="accordionExample">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h2 class="mb-0">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          AliExpress থেকে কিভাবে অর্ডার করব ?
+        </button>
+      </h2>
+    </div>
+
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body">
+       AliExpress থেকে আপনার পছন্দের পন্যটির  লিংক আমাদের ফেইসবুক পেজ <a href="https://m.me/mbstubazar" target="_blank">inbox</a> এ পাঠিয়ে দিতে হবে। তারপর আমরা আপনাকে জানিয়ে দিব,  আপনার পন্যের মুল্য স্বরুপ আপনাকে কত টাকা দিতে হবে। আপনার অর্ডার কনফার্ম হলে আপনাকে একটি  <b>#invoice number</b> দেয়া হবে ।পরবর্তিতে আপনার অর্ডারকৃত পন্যের যেকোন তথ্যের জন্য  আমাদের সাথে যোগাযোগ করতে চাইলে  উক্ত  <b>#invoice number</b> টি  যোগাযোগ করতে হবে । পন্যের লিংক দেয়ার সময় আপনাকে কিছু জিনিস খেয়াল করতে হবে। যেমন, ধরুন আপনি যে পন্যটি কিনবেন তার রিভিউ কেমন, ঐ পন্যটি কেমন সেল হয়েছে ইত্যাদি বিষয় আপনাকেই দেখতে হবে ।
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          ডলার প্রতি আমাকে কত টাকা বেশি দিতে হবে ?
+        </button>
+      </h2>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+      <div class="card-body">
+      বর্তমানে <b>১ ডলার = ৮৪.২৫ টাকা</b> <small> ( সংশোধিত তারিখ -> ২৮-৩-২০১৯ অনুযায়ি ) </small>কিন্তু আমাদের আপনাকে দিতে হবে <b>১ ডলার = ৯০ টাকা </b>। ধরুন AliExpress এর একটি পন্যের মুল্য ১০  ডলার । তাহলে আপনাকে আমাদের দিতে হবে <b>১০*৯০ = ৯০০ </b> টাকা। তবে আপনি ৫০ ডলার এর বেশি কিনলে আপনার মুল্য যা আসবে সেখান থেকে ৫০ টাকা মুল্য ছাড় দেয়া হবে।<br><br>
+<div class ="text-secondary">**Note: তবে ডলার এর মুল্য সবসময় কম বেশি হয়ে থাকে , সেক্ষেত্রে প্রতি ডলার এর মুল্য সবসময় আপডেট হতে পারে ** </div>
+
+
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingThree">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          আমাকে কি শিপিং কস্ট দিতে হবে না ?
+        </button>
+      </h2>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+      <div class="card-body">
+        অনেক সময় পন্যের দামের চেয়ে শিপিং কস্ট অনেক বেশি আসে। তাই  শিপিং কস্ট যেগুলোতে ফ্রি সেইসব প্রোডাক্ট বাছাই করাই বুদ্ধিমানের কাজ । সাথে সাথে আপনাকে  অবশ্যই দেখে নিতে হবে সেই প্রোডাক্টটি বাংলাদেশে তারা দিচ্ছে কিনা। তবে চিন্তার কিছু নেই আপনার অর্ডার কনফার্ম করার পুর্বে  আমরা একবার চেক করে নিব সব কিছু।
+      </div>
+    </div>
+  </div>
+
+
+  <div class="card">
+    <div class="card-header" id="headingFive">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+          আমি শুনেছি সরকারকে নাকি ভ্যাট দিতে হয়, কথাটা কি সত্য ?
+        </button>
+      </h2>
+    </div>
+    <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+      <div class="card-body">
+        হুম কথাটা পুরোপুরি মিথ্যা না। সরকার সব প্রোডাক্টের উপর ভ্যাট বসায় না। তবে যদি ভ্যাট বসায় তাহলে আপনাকে সেটা দিতেই হবে, এবং সেটা নির্ধারিত সময়ের মধ্যেই।
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingSix">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+          আমার পন্য ভেঙ্গে গেলে বা হাতে না পেলে আমি কি টাকা ফেরত পাব  ?
+        </button>
+      </h2>
+    </div>
+    <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
+      <div class="card-body">
+        হুম অবশ্যই পাবেন।তবে সেটা একটু সময় সাপেক্ষ।সাধারনত তারা ৬০ দিন সময় নেয়।তাতেও যদি আপনি পন্য হাতে না পান তাহলে আমরা রিফান্ড এর জন্য ক্লেইম করব।এবং যখন সেলার রিফান্ড করবে তখন আমারা আপনাকে রিফান্ড করে দিব।
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingSeven">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+          আমি কিভাবে পেমেন্ট করব ?
+        </button>
+      </h2>
+    </div>
+    <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
+      <div class="card-body">
+       আমরা বিকাশ এবং রকেটের মাধ্যমে পেমেন্ট নিয়ে থাকি।<br>
+	আমাদের বিকাশ নাম্বার <b>01777659287</b>(personal)<br> এবং
+     রকেট নাম্বার <b>017776592874</b>
+	<div class="text-secondary">Note: বিকাশ  এবং রকেট চার্জ আপনাকেই দিতে হবে। </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingEight">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+          কুরিয়ার চার্জ কি ফ্রি নাকি আমাকে দিতে হবে ?
+        </button>
+      </h2>
+    </div>
+    <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordionExample">
+      <div class="card-body">
+      আপনি টাংগাইলের ভিতর হলে আপনার কুরিয়ার চার্জ লাগবে না।অন্যথায় আপনাকে কুরিয়ার চার্জ এর জন্য ১০০ টাকা দিতে হবে।
+
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" id="headingNine">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+         পন্য আসতে কতদিন সময় লাগবে ?
+        </button>
+      </h2>
+    </div>
+    <div id="collapseNine" class="collapse" aria-labelledby="headingNine" data-parent="#accordionExample">
+      <div class="card-body">
+      ফ্রি শিপিং এ পন্য আসতে তুলনামুলক একটু বেশি সময় লাগে। কোন কোন পন্য ২ সপ্তাহের  মধ্যেই চলে আসে আবার কোন কোন  পন্য আসতে ৩০ দিনেরও বেশি সময়  লাগে। আপনি যদি ৬০ দিনের মধ্যেও আপনার পন্যটি হাতে না পেয়ে থাকেন তাহলে আমরা আপনাকে যে <b>#invoice number</b> আপনাকে দিয়েছি সেটা দিয়ে আমাদের সাথে যোগাযোগ করতে হবে।
+
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+</div>
+    {%endblock%}

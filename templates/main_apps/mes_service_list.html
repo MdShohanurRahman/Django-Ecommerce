@@ -1,0 +1,95 @@
+{% extends 'shop/base_shop_page.html' %}
+{% load staticfiles %}
+<style>
+body{
+margin-top: auto
+}
+
+
+</style>
+{% block title %}
+{% if location %}{{ block.super }}| {{ location.location_name }} {% else %}{{ block.super }}| mes-service{% endif %}
+{% endblock %}
+{% block stylesheet %}
+
+{% endblock %}
+{% block breadcrums %}
+{% if location %}
+
+<li class="breadcrumb-item"><a href="{% url 'mainapp:mes_list' %}">mes service</a>
+</li>
+<li class="breadcrumb-item active">{{ location }}
+</li>
+{% else %}
+<li class="breadcrumb-item active">mess-service</li>
+{% endif %}
+{%endblock%}
+{%block search%}
+<div class="product_sorting w-100">
+    <form action="" method="GET">
+        <div class="input-group">
+            <input class="form-control"
+                   type="text" name="q"
+                   placeholder="mess name,boys,girls "
+                   value="{{ request.GET.q }}">
+            <span class="input-group-btn">
+                <button class="btn btn-outline-primary" type="submit">Search</button>
+            </span>
+        </div>
+    </form>
+</div>
+{%endblock%}
+{% block category %}
+<div class="sidebar_title">
+    <h4 class="categoryname ">Locations</h4>
+    <hr class="hr">
+</div>
+<ul class="sidebar_categories">
+    <ol class="list-unstyled">
+        <li {% if not location %} class="active" {% endif %}><a
+                href="{% url 'mainapp:mes_list' %}">All</a></li>
+        {% for c in qq %}
+        <li {% if location.location_name == c.location_name %} class="active" {% endif %}>
+            <a
+                    href="{% url 'mainapp:mes_list_by_category' c.location_name %}">{{ c.location_name }}</a>
+            <span class="badge badge-secondary">{{ c.messervice__count }}</span>
+        </li>
+        {% endfor %}
+    </ol>
+</ul>
+{% endblock %}
+{%block custom_grid%}
+{% if not post %}
+<div class="h3 py-2 text-center mb-5 alert-danger">
+    No Post Available
+</div>
+{% endif %}
+{%endblock%}
+{%block product%}
+{% for mes in post %}
+
+<div class="product-item card mb-3">
+    <div class="product discount product_filter">
+        <div class="product_image">
+            <div class="card text-white bg-info">
+
+                <div class="card-body text-success">
+                   <h5 class="card-title text-white text-truncate py-1 text-center">{{mes.mes_name}}</h5>
+                    <br>
+                    <p class="card-text text-dark text-center"><i class="fas fa-map-marker-alt"> {{mes.location}}</i></p>
+
+                </div>
+            </div>
+        </div>
+        <div class="card-body product_info">
+
+            <h6 class="card-text "> {{mes.mes_category}}-mes</h6>
+            <p class="card-text">{{mes.seat_rent}} ৳/month</p>
+            <a href="{{ mes.get_absolute_url }}" class="btn btn-primary">read more...</a>
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+
+{%endblock%}

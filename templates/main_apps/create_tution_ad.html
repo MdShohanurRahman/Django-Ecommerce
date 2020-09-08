@@ -1,0 +1,82 @@
+{% extends 'main_apps/base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block title %}
+	{{ block.super }}| create-ad
+{% endblock %}
+{% block stylesheet %}
+	<style>
+	.asteriskField {
+	display: none;
+	}
+	form .alert ul li {
+	list-style: none;
+	}
+	form .alert ul {
+	padding: 0;
+	margin: 0;
+	}
+	</style>
+	{%endblock%}
+	{% block content %}
+		<div class="page_container">
+			<ol class="breadcrumb bg-white">
+				<li class="breadcrumb-item"><a href="{% url 'mainapp:index' %}">Home</a></li>
+				<li class="breadcrumb-item"><a href="">Dashboard</a></li>
+				<li class="breadcrumb-item active">Create-Tuition-Service</li>
+			</ol>
+			<hr>
+			<div class="row justify-content-center ">
+				<div class="col-md-8">
+					<div class="jumbotron w3-card bg-light">
+						<div class="p-2 alert-warning text-center">we accept MBSTU students only</div>
+						<form action="" method="post" enctype="multipart/form-data" novalidate>
+							{% csrf_token %}
+							<div class="form-row">
+								<div class="form-group col">
+									{{ form.category|as_crispy_field }}
+								</div>
+							</div>
+							<div class="form-row">
+                            <div class="form-group col-md-4">
+                                {{ form.department|as_crispy_field }}
+                            </div>
+                            <div class="form-group col-md-5">
+                                {{ form.semester|as_crispy_field }}
+                            </div>
+                            <div class="form-group col-md-3">
+                                {{form.student_id|as_crispy_field}}
+                            </div>
+                        </div>
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									{{ form.days_in_week|as_crispy_field }}
+								</div>
+								<div class="form-group col-md-6">
+									{{ form.salary|as_crispy_field }}
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col">
+									{{ form.description|as_crispy_field }}
+									{{form.media}}
+								</div>
+							</div>
+							<div class="form-row mb-2">
+								<div class="form-group col">
+									{{ form.active|as_crispy_field }}
+									<small>If you uncheck active ,your profile will not visible.</small>
+								</div>
+							</div>
+							<button class=" btn btn-primary float-right" type="submit"> Create Post
+							</button>
+							<br>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		{%endblock%}
+		{%block footer%}
+		{% include 'plugin/footer.html' %}
+		{%endblock%}

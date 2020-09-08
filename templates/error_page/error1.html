@@ -1,0 +1,27 @@
+{%extends 'main_apps/base.html' %}
+{% block stylesheet %}
+	<style>
+			
+	#parent {
+	padding: 5% 0;
+	}
+	#child {
+	padding: 10% 0;
+	}
+	</style>
+	{%endblock%}
+	{%block content%}
+	<div class="page_container ">
+		{%include 'plugin/message.html'%}
+		<div id="parent" >
+			<div align="center" id="child">
+				<p class="h1 embed-responsive text-danger">Error 404!!!</p>
+				<h3 class="">{{err}}</h3>
+				<!-- <h5 class="">{{e}}</h5> -->
+			</div>
+		</div>
+	</div>
+	{%endblock%}
+	{%block footer%}
+	{% include 'plugin/footer.html' %}
+	{%endblock%}

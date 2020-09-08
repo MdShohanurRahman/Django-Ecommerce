@@ -1,0 +1,83 @@
+{% extends 'main_apps/base.html' %}
+{% load crispy_forms_tags %}
+{%load staticfiles%}
+{% block title %}{{block.super}}| login{% endblock %}
+{% block stylesheet %}
+<style type="text/css">
+
+    .asteriskField {
+      display: none;
+    }
+    form .alert ul li {
+      list-style: none;
+    }
+    form .alert ul {
+      padding: 0;
+      margin: 0;
+    }
+
+.login_btn{
+color: black;
+background-color: #FFC312;
+width: 100px;
+}
+
+.login_btn:hover{
+color: black;
+background-color: white;
+}
+
+body{
+   background-color: #f1f1f1;
+   
+}
+
+#id_username{
+
+}
+
+
+
+
+</style>
+{%endblock%}
+
+
+{% block content %}
+<div class="page_container">
+    {% include 'plugin/message.html' %}
+
+    <div class="row justify-content-center">
+        <div class="col-md-6 ">
+            <div class="card">
+                <div class="card-header w3-black ">
+                    <h3 class="text-white">Log In</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        {{ form|crispy }}
+
+                        <div class="form-group form-row">
+
+                            <div class="col">
+                                <a href="{% url 'password_reset' %}" class="btn btn-link">Forgot your password?</a>
+                            </div>
+                            <div class="col">
+                                <input type="submit" value="Login" class="btn btn-primary btn-md float-right">
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="card-footer w3-black text-white">
+                    <div class="row justify-content-center">
+                        Don't have an account?<a href="{% url 'mainapp:register' %}">Sign Up</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

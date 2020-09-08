@@ -1,0 +1,55 @@
+{% extends 'main_apps/base.html' %}
+{% load static %}
+{% block title %}
+{{ block.super }} | Order-list
+{% endblock %}
+
+{% block content %}
+
+<div class="page_container">
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Order No</th>
+            <th scope="col">Name</th>
+            <th scope="col">Contact</th>
+            <th scope="col">Date</th>
+            <th scope="col">Total</th>
+            <th scope="col">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in order_obj %}
+        <tr>
+            <th scope="row"><a href="{%url 'orders:order_details' order.id%}">
+                {{ order.id}}</a></th>
+            <td>{{order.first_name}}</td>
+            <td>{{order.contact_no}}</td>
+            <td>{{order.created}}</td>
+            <td>{{ order.get_total_cost }} ৳</td>
+            <td>
+                {%if order.paid %}
+                Paid
+                {%else%}
+                Not Paid
+                {%endif%}
+            </td>
+
+        </tr>
+        {% endfor %}
+
+
+        </tbody>
+    </table>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+</div>
+
+{%endblock%}

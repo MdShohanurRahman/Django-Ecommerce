@@ -1,0 +1,27 @@
+{% extends 'main_apps/base.html' %}
+{% block title %}
+{{ block.super }}| email-confirmation
+{% endblock %}
+{% block stylesheet %}
+<style>
+		body{
+			background-color: #f1f1f1;
+
+		}
+
+</style>
+{%endblock%}
+{% block content %}
+<div align="middle" class="page_container mb-5">
+    <div class="jumbotron alert-success h5">
+        Thanks for registration. A confirmation email has send to your email.
+        <p class="text-dark mt-2">If you don't receive an email, please make sure you've entered the address you registered
+            with, and check your spam folder.</p>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+{% endblock %}

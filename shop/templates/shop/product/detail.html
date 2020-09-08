@@ -1,0 +1,392 @@
+{% extends 'main_apps/base.html' %}
+{% load staticfiles %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+{% block title %} {{block.super}} | shop {% endblock %}
+{% block stylesheet %}
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/single_styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/single_responsive.css' %}">
+    <style>
+   body {
+  font-family: 'open sans';
+  overflow-x: hidden; }
+
+img {
+  max-width: 100%; }
+
+.preview {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column; }
+  @media screen and (max-width: 996px) {
+    .preview {
+      margin-bottom: 20px; } }
+
+.preview-pic {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1; }
+
+.preview-thumbnail.nav-tabs {
+  border: none;
+  margin-top: 15px; }
+  .preview-thumbnail.nav-tabs li {
+    width: 18%;
+    margin-right: 2.5%; }
+    .preview-thumbnail.nav-tabs li img {
+      max-width: 100%;
+      display: block; }
+    .preview-thumbnail.nav-tabs li a {
+      padding: 0;
+      margin: 0; }
+    .preview-thumbnail.nav-tabs li:last-of-type {
+      margin-right: 0; }
+
+.tab-content {
+  overflow: hidden; }
+  .tab-content img {
+    width: 100%;
+    -webkit-animation-name: opacity;
+            animation-name: opacity;
+    -webkit-animation-duration: .3s;
+            animation-duration: .3s; }
+
+.card {
+  margin-top: 50px;
+  background: #eee;
+  padding: 3em;
+  line-height: 1.5em; }
+
+@media screen and (min-width: 997px) {
+  .wrapper {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex; } }
+
+.details {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column; }
+
+.colors {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1; }
+
+.product-title, .price, .sizes, .colors {
+  text-transform: UPPERCASE;
+  font-weight: bold; }
+
+.checked, .price span {
+  color: #ff9f1a; }
+
+.product-title, .rating, .product-description, .price, .vote, .sizes {
+  margin-bottom: 15px; }
+
+.product-title {
+  margin-top: 0; }
+
+.size {
+  margin-right: 10px; }
+  .size:first-of-type {
+    margin-left: 40px; }
+
+.color {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+  height: 2em;
+  width: 2em;
+  border-radius: 2px; }
+  .color:first-of-type {
+    margin-left: 20px; }
+
+.add-to-cart, .like {
+  background: #ff9f1a;
+  padding: 1.2em 1.5em;
+  border: none;
+  text-transform: UPPERCASE;
+  font-weight: bold;
+  color: #fff;
+  -webkit-transition: background .3s ease;
+          transition: background .3s ease; }
+  .add-to-cart:hover, .like:hover {
+    background: #b36800;
+    color: #fff; }
+
+.not-available {
+  text-align: center;
+  line-height: 2em; }
+  .not-available:before {
+    font-family: fontawesome;
+    content: "\f00d";
+    color: #fff; }
+
+.orange {
+  background: #ff9f1a; }
+
+.green {
+  background: #85ad00; }
+
+.blue {
+  background: #0076ad; }
+
+.tooltip-inner {
+  padding: 1.3em; }
+
+@-webkit-keyframes opacity {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(3);
+            transform: scale(3); }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1); } }
+
+@keyframes opacity {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(3);
+            transform: scale(3); }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1); } }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="container single_product_container">
+        <div class="row">
+            <div class="col">
+                <!-- Breadcrumbs -->
+                <div class="breadcrumbs d-flex flex-row align-items-center">
+                    <ul class="breadcrumb bg-white ">
+                        <li><a href="{% url 'mainapp:index' %}"><i aria-hidden="true"></i>Home</a></li>
+                        <li><a href="{% url 'mainapp:mes_list'%}"><i class="fa fa-angle-right" aria-hidden="true">
+                        </i>shop</a></li>
+                        <li class="active"><a href="#"><i class="fa fa-angle-right"
+                        aria-hidden="true"></i>{{product.name}}</a></li>
+
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+        <div class="container">
+		<div class="card bg-white">
+			<div class="container-fliud">
+				<div class="wrapper row">
+					<div class="preview col-md-6">
+
+						<div class="preview-pic tab-content">
+						  <div class="tab-pane active" id="pic-1"><img src="{{product.image.url}}" /></div>
+						  <div class="tab-pane" id="pic-2"><img src="http://placekitten.com/400/252" /></div>
+						  <div class="tab-pane" id="pic-3"><img src="http://placekitten.com/400/252" /></div>
+						  <div class="tab-pane" id="pic-4"><img src="http://placekitten.com/400/252" /></div>
+						  <div class="tab-pane" id="pic-5"><img src="http://placekitten.com/400/252" /></div>
+						</div>
+
+
+					</div>
+					<div class="details col-md-6">
+						<h3 class="product-title">{{product.name}}</h3>
+						<div class="rating">
+							<a class="btn btn-sm rounded w3-indigo" href="https://www.facebook.com/sharer/sharer.php?u={{request.build_absolute_uri}}"><i class="fab fa-facebook-f"> Share</i></a>
+							<!--<span class="review-no">41 reviews</span>-->
+						</div>
+                        <i class="fas fa-truck"> <span> free delivery</span></i>
+                        <div class="mx-3 mb-3">
+                            <li>Availability: In Stock</li>
+                            <li>Area Coverage: Only Tangail</li>
+                            <li>Payment Methods: Cash on delivery</li>
+                        </div>
+
+						<h4 class="price">current price: <span> ৳ {{ product.price |intcomma  }}</span>{%if product.past_price%}
+                            <del class="text-secondary h6"> {{ product.past_price }}</del> {%endif%}</h4>
+
+						<div class="action">
+                            <form class="btn-group" action="{% url 'cart:cart_add' product.id %}" method="post">
+                            {% csrf_token %}
+                            <span class="h4 mr-3">Quantity</span> {{ cart_product_form }}
+                            <input type="submit" value="add to cart" class="btn btn-danger btn-group">
+                        </form>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    </div>
+
+    <div class="tabs_section_container">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="tabs_container">
+                        <ul class="tabs d-flex flex-sm-row flex-column align-items-left align-items-md-center justify-content-center">
+                            <li class="tab active" data-active-tab="tab_1"><span>Description</span></li>
+                            <li class="tab" data-active-tab="tab_2"><span>Additional Information</span></li>
+                            <li class="tab" data-active-tab="tab_3"><span>Reviews ({{ comment.count }})</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div id="tab_1" class="tab_container active">
+                        <div class="row">
+                            <div class="col-lg-5 desc_col">
+                                <div class="tab_title">
+                                    <h4>Description</h4>
+                                </div>
+                                <div class="tab_text_block">
+                                    <h2>{{ product.title }}</h2>
+                                    <p>{{ product.description|safe }}</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 offset-lg-2 desc_col">
+                                <div class="add">
+                                    <a href="">
+                                        <div class="card text-white bg-info mb-3" >
+                                            <div class="card-header h3 text-center">
+                                            বিজ্ঞাপন দিন </div>
+                                            <div class="card-body">
+                                                <p class="card-text h5">আপনি  কি আপনার পন্যের  বিজ্ঞাপন দিতে চান ? তাহলে যোগাযোগ করুন  01871 - 811151 </p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="add">
+                                    <a href="{% url 'mainapp:profile' %}">
+                                        <div class="card text-white bg-danger mb-3" >
+                                            <div class="card-header h3 text-center">
+                                            টিউশনি দরকার??</div>
+                                            <div class="card-body">
+                                                <p class="card-text h5">আপনি যদি MBSTU এর শিক্ষার্থী হয়ে থাকেন তাহলে আজই আপনার টিউশন প্রোফাইল তৈরি করুন। </p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tab Additional Info -->
+                    <div id="tab_2" class="tab_container">
+                        <div class="row">
+                            <div class="col additional_info_col">
+                                <div class="tab_title additional_info_title">
+                                    <h4>Additional Information</h4>
+                                </div>
+                                <div class="text-justify h6">
+
+                                    MBSTU Bazar এ যেকোনো পন্য কেনার সাথে সাথে আপনার ইমেলে invoice number পাঠানো হবে।পরবর্তিতে আপনাকে মোবাইল করে আপানার অর্ডার কনফার্ম  করা হবে। আপনাকে যে invoice number দেয়া হবে, সেটা দেখিয়ে আপনি আপনার প্রোডাক্ট বুঝে নিবেন। আমরা সাধারণত ২ দিনের মধ্যেই প্রোডাক্ট ডেলিভারি দিয়ে থাকি। তবে কেউ বই অর্ডার করলে সেক্ষেত্রে ৩/৪ দিন পরে ডেলিভারি দিয়ে থাকি।কারন আমরা পুরো সপ্তাহের বই এর অর্ডার ১ দিনে দিয়ে থাকি।
+                                    যে কোন ধরনের সহযোগিতার জন্য আমাদের সাথে লাইভ চ্যাট করুন অথবা ফোন করুন । মনে রাখবেন, আপনার প্রয়োজনেই আমাদের আয়োজন।ধন্যবাদ
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tab Reviews -->
+                    <div id="tab_3" class="tab_container">
+                        <div class="row">
+                            <!-- User Reviews -->
+                            <div class="col-lg-6 reviews_col">
+                                <div class="tab_title reviews_title">
+                                    <h4>Reviews ({{ comment.count }})</h4>
+                                </div>
+                                <!-- User Review -->
+                                {% for c in comment %}
+                                    <div class="user_review_container d-flex flex-column flex-sm-row">
+                                        <div class="review">
+                                            <div class="review_date">{{c.posted_date}}</div>
+                                            <div class="user_name">{{c.name}}</div>
+                                            <p>{{c.post_comment}}</p>
+                                        </div>
+                                    </div>
+                                    {%endfor%}
+                                </div>
+                                <!-- Add Review -->
+                                <div class="col-lg-6 add_review_col">
+                                    {% if request.user.is_authenticated %}
+                                        <div class="add_review">
+                                            <form id="review_form" action="" method="POST">
+                                                {% csrf_token %}
+                                                <div>
+                                                    <h1>Add Review</h1>
+                                                </div>
+                                                <div>
+                                                    {{review_form|crispy}}
+                                                </div>
+                                                <div class="text-left text-sm-right">
+                                                    <button id="review_submit" type="submit"
+                                                    class="red_button review_submit_btn trans_300" value="Submit">submit
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        {%else%}
+                                        <h3 class="text-muted">Login to add review</h3>
+                                        {%endif%}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Related post-->
+            {#    <div class="container">#}
+                {#        {% if relatedpost.count == 0 %}#}
+                    {#            <h3 class="text-center">No Related Post</h3>#}
+                {#        {% else %}#}
+                    {#            <h3 class="text-center"><u>Related Post</u></h3>#}
+                {#        {% endif %}#}
+                {##}
+                {#        <div class="row">#}
+                    {#            <!-- Product  -->#}
+                    {#            {% for p in relatedpost %}#}
+                        {#                <div class="col-md-3 product-grid">#}
+                            {##}
+                            {#                    <div class="image">#}
+                                {#                        <a href="{% url 'mainapp:single-product' p.id %}">#}
+                                    {#                            <img style="" src="{{ p.image.url }}" class="w-100">#}
+                                    {#                            <div class="overlay">#}
+                                        {#                                <div class="detail">View Details</div>#}
+                                    {#                            </div>#}
+                                {#                        </a>#}
+                            {#                    </div>#}
+                            {#                    <br>#}
+                            {#                    <h5 class="text-center">{{ p.title }}</h5>#}
+                            {#                    <h5 class="text-center" style="color: red">BDT {{ p.seat_rent }}৳</h5>#}
+                            {#                    <!-- <a href="{% url 'mainapp:single-product' p.id %}" class="btn buy">Order Now</a>-->#}
+                        {#                </div>#}
+                    {#            {% endfor %}#}
+                {#        </div>#}
+            {#    </div>#}
+            <!-- Newsletter -->
+        {% endblock %}
+        {%block footer%}
+        {% include 'plugin/benefit.html' %}
+        {% include 'plugin/footer.html' %}
+        {%endblock%}
+        {% block script %}
+            <script src="{% static 'js/single_custom.js' %}"></script>
+        {% endblock %}

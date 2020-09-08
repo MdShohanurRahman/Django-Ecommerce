@@ -1,0 +1,137 @@
+{% load staticfiles %}
+{% block stylesheet %}
+<style>
+    @media only screen and (max-width: 479px){
+    img.logo{
+    width:120px;
+    }
+    }
+    
+
+</style>
+{% endblock %}
+<header class="header trans_300 ">
+    <div class="main_nav_container fixed-top bg-dark ">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-right">
+                    <div class="logo_container">
+                        <a href="{% url 'mainapp:index' %}">
+                            <img class="logo" src="{% static 'images/logo.png' %}"
+                                 style="max-width:170px;">
+                        </a>
+                    </div>
+                    <nav class=" navbar">
+                        <ul class="navbar_menu  ">
+                            {%with url_name=request.resolver_match.url_name%}
+                            <li><a href="{% url 'mainapp:index' %}"
+                                   class="{%if url_name == 'index'%}active{%endif%}w3-text-aqua w3-hover-opacity">home</a>
+                            </li>
+                            <!--<li><a href="{% url 'shop:product_list' %}"-->
+                                   <!--class="{%if url_name == 'product_list'%}active{%endif%}w3-text-aqua w3-hover-opacity">shop</a>-->
+                            <!--</li>-->
+                            <li class="btn-group">
+                                <a  class="dropdown-toggle w3-text-aqua w3-hover-opacity" data-toggle="dropdown"
+                                        data-display="static" aria-haspopup="true" aria-expanded="false">
+                                    shop
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-lg-right">
+                                   <a class="dropdown-item {%if url_name == 'product_list'%}text-danger{%endif%}"
+                                      href="{% url 'shop:product_list' %}">our shop</a>
+                                     <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item {%if url_name == 'template'%}text-danger{%endif%}" href="{%url 'template'%}" >Ali-Express</a>
+                                </div>
+                            </li>
+                            <li><a href="{% url 'pharma_zone:medical_product_list' %}"
+                                   class="{%if url_name == 'medical_product_list'%}active{%endif%}w3-text-aqua w3-hover-opacity">pharma
+                                zone</a></li>
+                            <li class=""><a href="{% url 'mainapp:mes_list' %}"
+                                            class="{%if url_name == 'mes_list'%}active{%endif%}w3-text-aqua w3-hover-opacity">mess</a>
+                            </li>
+                            <li class=""><a href="{% url 'mainapp:tuition_list' %}"
+                                            class="{%if url_name == 'tuition_list'%}active{%endif%}w3-text-aqua w3-hover-opacity">tuition</a>
+                            </li>
+                            <li><a href="{%url 'mainapp:contact'%}"
+                                   class="{%if url_name == 'contact'%}active{%endif%}w3-text-aqua w3-hover-opacity">about
+                                us</a></li>
+                            {%endwith%}
+
+                        </ul>
+                        <ul class="navbar_user ">
+
+                            <li>
+                                {% if request.user.is_authenticated %}
+                                <div class="w3-dropdown-hover">
+                                    <button class="w3-small w3-button text-white bg-dark text-uppercase">
+                                        <span class="h6">{{ request.user.username|truncatechars:8}}</span></button>
+                                    <div class="w3-dropdown-content w3-bar-block w3-card-4 w3-animate-zoom">
+                                        <a href="{% url 'mainapp:profile' %}"
+                                           class="w3-bar-item w3-button ">Dashboard</a>
+                                        <a href="{% url 'logout' %}" class="dropdown-divider w3-bar-item w3-button">Logout</a>
+
+                                    </div>
+                                </div>
+                            </li>
+                            {% else %}
+                            <li>
+                                <button class="mybutton btn btn-outline-info btn-sm"
+                                        onclick="window.location.href='{% url 'mainapp:login' %}'">Login
+                                </button>
+
+                            </li>
+                            {% endif %}
+                            <li class="checkout ">
+                                {% with totail_items=cart|length %}
+                                <a href="{% url 'cart:cart_detail' %}">
+                                    <i class="fa fa-shopping-cart small" aria-hidden="true"></i>
+                                    <span id="checkout_items" class="checkout_items">{{ totail_items }}</span>
+                                </a>
+                                {% endwith %}
+                            </li>
+                        </ul>
+                        <div class="hamburger_container">
+                            <i class="fa fa-bars text-white" aria-hidden="true"></i>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!--mobile menu -->
+<div class="fs_menu_overlay ">
+</div>
+<div class="hamburger_menu">
+    <div class="hamburger_close"><i class="fa fa-times" aria-hidden="true"></i>
+    </div>
+
+    <div class="hamburger_menu_content text-right">
+        <ul class="menu_top_nav">
+
+            {%with url_name=request.resolver_match.url_name%}
+            <li class="menu_item"><a href="{% url 'mainapp:index' %}"
+                                     class="{%if url_name == 'index'%}text-danger{%endif%}">home</a></li>
+            <li class="menu_item has-children">
+					<a href="#">
+						Shop
+						<i class="fa fa-angle-down"></i>
+					</a>
+					<ul class="menu_selection">
+						<li><a href="{% url 'shop:product_list' %}"
+                                     class="{%if url_name == 'product_list'%}text-danger{%endif%}">shop</a></li>
+						<li><a class="{%if url_name == 'template'%}text-danger{%endif%}" href="{%url 'template'%}" >Ali-Express</a></li>
+					</ul>
+				</li>
+            <li class="menu_item"><a href="{% url 'pharma_zone:medical_product_list' %}"
+                                     class="{%if url_name == 'medical_product_list'%}text-danger{%endif%}">Pharma
+                Zone</a></li>
+            <li class="menu_item"><a href="{% url 'mainapp:mes_list' %}"
+                                     class="{%if url_name == 'mes_list'%}text-danger{%endif%}">mess</a></li>
+            <li class="menu_item"><a href="{% url 'mainapp:tuition_list' %}"
+                                     class="{%if url_name == 'tuition_list'%}text-danger{%endif%}">tuition</a></li>
+            <li class="menu_item"><a href="{%url 'mainapp:contact'%}"
+                                     class="{%if url_name == 'contact'%}text-danger{%endif%}">about us</a></li>
+            {%endwith%}
+        </ul>
+    </div>
+</div>

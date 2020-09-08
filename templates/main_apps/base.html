@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <title>{% block title %}Mbstu Bazar {% endblock %}</title>
+    <link rel="icon" type="image/png" href="{% static 'images/icon.png' %}"sizes="16x16">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/bootstrap4/bootstrap.min.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/bootstrap4/bootstrap.min.js' %}">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+          integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link href="{% static 'plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/owl.carousel.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/owl.theme.default.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/animate.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/main_styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/responsive.css' %}">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--fb-root-->
+    <div id="fb-root"></div>
+    <script>(function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&autoLogAppEvents=1&version=v3.1&appId=207788109914970';
+            fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+
+    </script>
+    <!--fb-root-->
+    <style>
+            
+            .mySlides {
+            display: none;
+            }
+            .inner{
+            overflow: hidden;
+            }
+            .inner img{
+            transition: all 1.5s ease;
+            }
+            .inner:hover img{
+            transform: scale(1.5);
+            }
+            .page_container
+            {
+            margin-top: 130px;
+            padding-bottom: 80px;
+            border-bottom: solid 1px #ebebeb;
+            }
+            
+
+            @media only screen and (max-width: 991px)
+            {
+            .page_container
+            {
+            margin-top: 120px;
+            }
+            }
+            @media only screen and (max-width: 479px)
+            {
+            .page_container
+            {
+            margin-top: 90px;
+            }
+            }
+
+    </style>
+    {% block stylesheet %}
+    {% endblock %}
+</head>
+<body>
+<div class="super_container">
+    <!-- Header -->
+    <!-- Main_nav -->
+    {% include 'plugin/main_nav.html' %}
+
+    <!-- Slider -->
+    {% block slider %}
+    {% endblock %}
+    <!-- Banner -->
+    {% block banner %}
+    {% endblock %}
+    <!-- New Arrivals -->
+    {% block containerfluid %}
+    {% endblock %}
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+</div>
+<!-- WhatsHelp.io widget -->
+<script type="text/javascript">
+    (function () {
+        var options = {
+            facebook: "370538547090736", // Facebook page ID
+            call_to_action: "Live chat", // Call to action
+            position: "right", // Position may be 'right' or 'left'
+        };
+        var proto = document.location.protocol, host = "whatshelp.io", url = proto + "//static." + host;
+        var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = url + '/widget-send-button/js/init.js';
+        s.onload = function () { WhWidgetSendButton.init(host, proto, options); };
+        var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+    })();
+</script>
+<!-- /WhatsHelp.io widget -->
+
+
+{% include 'plugin/footer.html' %}
+
+</div>
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'styles/bootstrap4/popper.js' %}"></script>
+<script src="{% static 'styles/bootstrap4/bootstrap.min.js' %}"></script>
+<script>
+        
+        $('.popover-dismiss').popover({
+        trigger: 'focus'
+        });
+
+</script>
+<script src="{% static 'plugins/Isotope/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'plugins/OwlCarousel2-2.2.1/owl.carousel.js' %}"></script>
+<script src="{% static 'plugins/easing/easing.js' %}"></script>
+<script src="{% static 'js/custom.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+        $(document).ready(function (event) {
+        <!--delete confirn-->
+        $('#delete').click(function () {
+        return confirm('Are You Sure To Delete ?');
+        });
+        <!--end -->
+        <!--slide up jquery-->
+        $(function () {
+        setTimeout(function () {
+        $('.alert').slideUp(3000);
+        }, 5000);
+        });
+        <!--end -->
+        });
+
+</script>
+{% block script %}
+{% endblock %}
+</body>
+</html>

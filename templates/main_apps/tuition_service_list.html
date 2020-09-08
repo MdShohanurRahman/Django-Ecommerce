@@ -1,0 +1,84 @@
+{% extends 'shop/base_shop_page.html' %}
+{% load staticfiles %}
+{% block title %}
+{{ block.super }}| tuition-service
+{% endblock %}
+{% block stylesheet %}
+<style type="text/css">
+    .card:hover {
+    box-shadow: 10px 10px 5px grey;
+    }
+
+
+</style>
+{% endblock %}
+{% block breadcrums %}
+{% if category %}
+
+<li class="breadcrumb-item"><a href="{% url 'mainapp:tuition_list' %}">mes service</a>
+</li>
+<li class="breadcrumb-item active">{{ category }}
+</li>
+{% else %}
+<li class="breadcrumb-item active">tuition-service</li>
+{% endif %}
+{% endblock %}
+{%block search%}
+<div class="product_sorting w-100">
+    <form action="" method="GET">
+        <div class="input-group">
+            <input class="form-control"
+                   type="text" name="q"
+                   placeholder="search"
+                   value="{{ request.GET.q }}">
+            <span class="input-group-btn">
+            <button class="btn btn-outline-primary" type="submit">Search</button>
+        </span>
+        </div>
+    </form>
+</div>
+{%endblock%}
+{% block category %}
+<div class="sidebar_title">
+    <h4 class="categoryname">Subjects</h4>
+    <hr class="hr">
+</div>
+<ul class="sidebar_categories">
+    <ol class="list-unstyled">
+        <li {% if not category %} class="active" {% endif %}><a
+                href="{% url 'mainapp:tuition_list' %}">All</a></li>
+
+        {% for c in categories %}
+        <li {% if category.category_name == c.category_name %} class="active" {% endif %}>
+            <a
+                    href="{% url 'mainapp:tuition_list_by_category' c.id %}">{{ c.category_name }}</a>
+        </li>
+        {% endfor %}
+    </ol>
+</ul>
+{% endblock %}
+{%block custom_grid%}
+{% if not post %}
+<div class="h3 py-2 text-center mb-5 alert-danger">
+    No Profile Available
+</div>
+{% endif %}
+{%endblock%}
+{% block product %}
+{% for p in post %}
+<div class="product-item mes w3-card mb-3">
+    <div class="product discount product_filter">
+        <div class="product_image img-thumbnail">
+            <img src="{{p.ad_author.profile_picture.url}}" style="height:170px;object-fit:fill;" alt="no image">
+        </div>
+        <div class="product_info mt-1">
+            <p class="card-title h4 text-capitalize text-truncate"><strong>{{p.ad_author.first_name}}</strong></p>
+            <p class="text-dark">dept of {{p.ad_author.department}}</p>
+            <p>starting {{p.salary}} ৳/month</p>
+            <a href="{{ p.get_absolute_url }}" class="btn btn-primary mb-4">view profile</a>
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+{%endblock%}

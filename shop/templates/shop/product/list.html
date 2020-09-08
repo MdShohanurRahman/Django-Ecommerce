@@ -1,0 +1,170 @@
+{% extends 'shop/base_shop_page.html' %}
+{% load staticfiles %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+{% block title %}
+    {% if category %}{{ block.super }}| {{ category.name }} {% else %}{{ block.super }}| shop{% endif %}
+{% endblock %}
+{% block stylesheet %}
+    <style>
+    /* body{
+    background-color: rgb(246, 246, 246);
+    } */
+    </style>
+{% endblock %}
+{% block breadcrums %}
+    {% if category %}
+        <li class="breadcrumb-item"><a href="{% url 'shop:product_list' %}">shop</a></li>
+        <li class="breadcrumb-item active">{{ category }}</li>
+    {% else %}
+        <li class="breadcrumb-item active">shop</li>
+    {% endif %}
+{% endblock %}
+{%block search%}
+<div class="product_sorting w-100">
+    <form action="" method="GET">
+        <div class="input-group">
+            <input class="form-control"
+            type="text" name="q"
+            placeholder="search product "
+            value="{{ request.GET.q }}">
+            <span class="input-group-btn">
+                <button class="btn btn-outline-primary" type="submit">Search</button>
+            </span>
+        </div>
+    </form>
+</div>
+{%endblock%}
+{% block category %}
+    <div class="sidebar_title">
+        <h4 class="categoryname ">Categories</h4><hr class="hr">
+    </div>
+    <div class="sidebar_categories">
+
+        <div >
+            <!--<ul >-->
+            <div class="btn-group">
+                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Select Category
+  </button>
+  <div class="dropdown-menu">
+            {% if not category %}
+                <a class ='text-danger ml-2' href="{% url 'shop:product_list' %}">All</a>
+                <div class="dropdown-divider"></div>
+            {%else%}
+                <a class='ml-2' href="{% url 'shop:product_list' %}">All</a>
+                <div class="dropdown-divider"></div>
+            {% endif %}
+            {% for c in categories %}
+                {% if category.slug == c.slug %}
+                        <a class="text-danger ml-2" href="{{s.get_absolute_url}}">{{c.name}}</a>
+	<div class="dropdown-divider"></div>
+                        <!--{%for s in subcategories%}-->
+                        <!--<ul class="ml-2">-->
+                        <!--<li class="">-->
+                        <!--    <a  href="{{ s.get_absolute_url }}" class="text-info"><b>> {{ s.name }}</b></a>-->
+                        <!--</li>-->
+                        <!--</ul>-->
+                        <!--{%endfor%}-->
+            {%else%}
+                    <a class="ml-2" href="{{c.get_absolute_url}}">{{c.name}}</a>
+	<div class="dropdown-divider"></div>
+            {% endif %}
+        {% endfor %}
+        </div>
+    <!--</ul>-->
+    </div>
+        </div>
+</div>
+
+{%endblock%}
+{% block product %}
+{% for p in post %}
+
+    <div class="card product-item {{p.category}} mb-3">
+        <div class="product discount product_filter">
+            <div class="product_image img-thumbnail">
+                <a href="{{p.get_absolute_url}}">
+                <img style="height:200px;object-fit:contain;" src="{{ p.image.url }}" alt=""></a>
+            </div>
+            {% if p.brand_new %}
+                <div class="product_bubble product_bubble_left product_bubble_green d-flex flex-column align-items-center"><span>new</span></div>
+            {% endif %}
+            <div class="product_info">
+                <h6 class="product_name"><a
+                href="">{{ p.name }}</a></h6>
+                <div class="product_price">{{ p.price|intcomma  }}৳
+                    {% if p.past_price %}
+                        <span>{{ p.past_price|intcomma  }}৳ </span>
+                    {% endif %}
+                </div>
+
+                <div class="btn btn-success my-2"><a
+                href="{{p.get_absolute_url}}">Details</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% empty %}
+
+{%if not subcategories%}
+    <div class="h3 py-2 text-center mt-5 alert-danger">
+    No Product Available</div>
+{%else%}
+ {%for s in subcategories%}
+        <div class="w3-tag text-center my-2">
+            <a  href="{{s.get_absolute_url}}">{{s.name}}</a>
+        </div>
+    {%endfor%}
+{%endif%}
+
+
+{% endfor %}
+{% endblock %}
+
+{%block custom_grid%}
+{% if category.slug == 'books' %}
+<div class="jumbotron">
+    <div class="my-5">{% include 'plugin/message.html' %}</div>
+    <div class="badge badge-warning p-2 h4 ">আপনার পছন্দের যেকোনো বই অর্ডার করুন </div>
+    <form action="" method="post"  novalidate>
+                    {% csrf_token %}
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            {{ form.book_name|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-6">
+                            {{ form.author_name|as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            {{ form.edition|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-3">
+                            {{ form.quantity|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-6">
+                            {{ form.contact|as_crispy_field }}
+                        </div>
+                    </div>
+                    <button class=" btn btn-primary btn-md float-right" type="submit">Submit Order</button>
+                </form>
+</div>
+{%endif%}
+{%endblock%}
+
+
+
+
+
+
+
+
+
+
+
+
+

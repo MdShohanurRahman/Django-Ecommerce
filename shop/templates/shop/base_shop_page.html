@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load staticfiles %}
+    <head>
+        <title>{% block title %}Mbstu Bazar {% endblock %}</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+       <link rel="icon" type="image/png" href="{% static 'images/icon.png' %}"sizes="16x16">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="{% static 'styles/bootstrap4/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+            integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+            <link href="{% static 'plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+            <link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/owl.carousel.css' %}">
+            <link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/owl.theme.default.css' %}">
+            <link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/animate.css' %}">
+            <link rel="stylesheet" type="text/css" href="{% static 'plugins/jquery-ui-1.12.1.custom/jquery-ui.css' %}">
+            <link rel="stylesheet" type="text/css" href="{% static 'styles/categories_styles.css' %}">
+            <link rel="stylesheet" type="text/css" href="{% static 'styles/categories_responsive.css' %}">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+            <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+            <style>
+
+            .hr{
+            width: auto;
+            border: 1.5px solid red;
+            }
+
+            .mySlides {
+            display: none;
+            }
+            .user_picture {
+            vertical-align: middle;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            }
+            .categoryname{
+            font-size: 30px;
+            }
+            .img {
+            width:120px;
+            height:120px;
+            margin:0 auto;
+            border-radius:50%;
+            overflow:hidden;
+            }
+
+
+            .page_container
+            {
+            margin-top: 130px;
+            padding-bottom: 80px;
+            border-bottom: solid 1px #ebebeb;
+            }
+             @media only screen and (max-width: 991px)
+            {
+            .page_container
+            {
+            margin-top: 120px;
+            }
+            }
+            @media only screen and (max-width: 479px)
+            {
+            .page_container
+            {
+            margin-top: 90px;
+            }
+            }
+            </style>
+            {% block stylesheet %}
+            {% endblock %}
+        </head>
+        <body>
+            <div class="super_container">
+                <!-- Header -->
+                <header class="header trans_300 ">
+                    <!-- Top Navigation -->
+                    {% include 'plugin/main_nav.html' %}
+                </header>
+                
+                <div class="container page_container">
+                    <div class="row">
+                        <div class="col product_section clearfix">
+                            
+                            <!-- Sidebar -->
+                            <div class="sidebar ">
+                                <div class="" >
+                                    {% block category %}
+
+                                    {% endblock %}
+                            </div>
+
+                            <!-- Price Range Filtering -->
+                            {%block section1%}
+                            <!-- <div class="sidebar_section">
+                                <div class="sidebar_title">
+                                    <h5>Filter by Price</h5>
+                                </div>
+                                <p>
+                                    <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                                </p>
+                                <div id="slider-range"></div>
+                                <div class="filter_button"><span>filter</span></div>
+                                
+                            </div> -->
+                            {%endblock%}
+                            <!-- Sizes -->
+                            {%block section2%}
+                            <!-- <div class="sidebar_section">
+                                
+                            </div> -->
+                            {%endblock%}
+                            <!-- Color -->
+                            {%block section3%}
+                            {%endblock%}
+                        </div>
+                        <!-- Main Content -->
+                        <div class="main_content">
+                            <!-- Products -->
+                            <div class="products_iso">
+                                <div class="row">
+                                    <div class="col">
+                                        <!-- Product Sorting -->
+
+                                        <div class="product_sorting_container product_sorting_container_top">
+									<ul class="product_sorting">
+										<!--<li>-->
+											<!--<span class="type_sorting_text">Default Sorting</span>-->
+											<!--<i class="fa fa-angle-down"></i>-->
+											<!--<ul class="sorting_type">-->
+												<!--<li class="type_sorting_btn" data-isotope-option='{ "sortBy": "original-order" }'><span>Default Sorting</span></li>-->
+												<!--<li class="type_sorting_btn" data-isotope-option='{ "sortBy": "price" }'><span>Price</span></li>-->
+												<!--<li class="type_sorting_btn" data-isotope-option='{ "sortBy": "name" }'><span>Product Name</span></li>-->
+											<!--</ul>-->
+                                            <!---->
+										<!--</li>-->
+                                        <nav aria-label="breadcrumb d-flex flex-row align-items-center">
+                                                    <ol class="breadcrumb bg-white">
+                                                        <li class="breadcrumb-item"><a href="{% url 'mainapp:index' %}">Home</a></li>
+                                                        {% block breadcrums %}
+                                                        {% endblock %}
+                                                    </ol>
+                                                </nav>
+
+
+									</ul>
+                                            <div class="pages d-flex flex-row align-items-center">
+
+                                                <div class="pages d-flex  vcc flex-row align-items-center">
+                                                {%block search%}
+                                                {%endblock%}
+                                            </div>
+
+                                            </div>
+
+
+								</div>
+                                        <!-- Product Grid -->
+                                        <div class="product-grid">
+                                            <!-- mes add -->
+                                            {% block product %}
+                                                
+                                            {% endblock %}
+                                        </div>
+                                        {%block custom_grid%}
+                                        {%endblock%}
+                                        
+                                        <!-- Product Sorting -->
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {%block webpage_container%}
+
+            {%endblock%}
+            {% block footer %}
+                <!-- Benefit -->
+                    {% include 'plugin/benefit.html' %}
+
+                <!-- Newsletter -->
+                <!-- Footer -->
+                {% include 'plugin/footer.html' %}
+            {% endblock %}
+        </div>
+        <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+        <script src="{% static 'styles/bootstrap4/popper.js' %}"></script>
+        <script src="{% static 'styles/bootstrap4/bootstrap.min.js' %}"></script>
+        <script>
+        $('.popover-dismiss').popover({
+        trigger: 'focus'
+        });
+        </script>
+        
+        <script src="{% static 'plugins/Isotope/isotope.pkgd.min.js'%}"></script>
+        <script src="{% static 'plugins/OwlCarousel2-2.2.1/owl.carousel.js' %}"></script>
+        <script src="{% static 'plugins/easing/easing.js' %}"></script>
+        <script src="{% static 'plugins/jquery-ui-1.12.1.custom/jquery-ui.js' %}"></script>
+        <script src="{% static 'js/categories_custom.js' %}"></script>
+        <script>
+        $('[data-toggle="popover"]').popover();
+        </script>
+    </body>
+
+</html>

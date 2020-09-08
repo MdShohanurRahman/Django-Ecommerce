@@ -1,0 +1,135 @@
+{% extends 'main_apps/base.html' %}
+{% load crispy_forms_tags %}
+{%load staticfiles%}
+{% block title %}{{block.super}}| about us{% endblock %}
+{% block stylesheet %}
+<style>
+
+</style>
+{%endblock%}
+
+
+{% block content %}
+<div class="page_container">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="mb-5 text-justify">
+                <strong class='text-danger'>MBSTU BAZAR</strong> is the 1<sup>st</sup> and most dynamic online shopping site featuring lots of products including clothes, electronics and household products and provide other non-profit beneficial services like tutor, mess and other useful services that is needed all MBSTUAN. Experience fast, reliable and trusted online shopping in MBSTU with home delivery anywhere within  Tangail.  Mbstu  Bazar provides a facility of online shopping with cash on delivery at doorstep.Everyone is encouraged to shop with confidence at MBSTU Bazar.com.as our strict buyer’s protection policies ensure no risks while shopping online.
+            </div>
+            <hr>
+            <ins class="h2">Contact Us</ins>
+
+            <div class="row mt-4">
+                <div align="center" class="col-12 col-sm-6 col-md-4 mb-3">
+                    <div class="card w3-center" style="width: 15rem;">
+                        <img class="card-img-top img-thumbnail" src="{% static 'images/slide-02.jpg' %}" alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h5 class="card-title font-weight-bold">Shohanur Rahman</h5>
+                            <p class="card-text">Founder Chief Executive Officer at MBSTU Bazar</p>
+
+                            <div style="font-size:20px">
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-linkedin"></i></a>
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div align="center" class="col-12 col-sm-6 col-md-4 mb-3">
+                    <div class="card w3-center" style="width: 15rem;">
+                        <img class="card-img-top img-thumbnail" src="{% static 'images/slide-02.jpg' %}" alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h5 class="card-title font-weight-bold">Shourav Bhuiya</h5>
+                            <p class="card-text">Planning Executive Officer at MBSTU Bazar</p>
+
+                            <div style="font-size:20px">
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-linkedin"></i></a>
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div align="center" class="col-12 col-sm-6 col-md-4 mb-3">
+                    <div class="card w3-center" style="width: 15rem;">
+                        <img class="card-img-top img-thumbnail" src="{% static 'images/slide-02.jpg' %}" alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h5 class="card-title font-weight-bold">Shuvo Biswas</h5>
+                            <p class="card-text">Chief Technology Officer MBSTU Bazar</p>
+
+                            <div style="font-size:20px">
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-linkedin"></i></a>
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div align="center" class="col-12 col-sm-6 col-md-4 mb-3">
+                    <div class="card w3-center" style="width: 15rem;">
+                        <img class="card-img-top img-thumbnail" src="{% static 'images/slide-02.jpg' %}" alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h5 class="card-title font-weight-bold">Al hasan Bappy</h5>
+                            <p class="card-text">Chief Marchendiser at MBSTU Bazar</p>
+
+                            <div style="font-size:20px">
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-linkedin"></i></a>
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div align="center" class="col-12  col-sm-6 col-md-4 mb-3">
+                    <div class="card w3-center" style="width: 15rem;">
+                        <img class="card-img-top img-thumbnail" src="{% static 'images/slide-02.jpg' %}" alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h5 class="card-title font-weight-bold">Mujahidul Islam </h5>
+                            <p class="card-text">Chief Operating Officer at MBSTU Bazar</p>
+
+                            <div style="font-size:20px">
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-linkedin"></i></a>
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div align="center" class="col-12 col-sm-6 col-md-4 mb-3">
+                    <div class="card w3-center" style="width: 15rem;">
+                        <img class="card-img-top img-thumbnail" src="{% static 'images/slide-02.jpg' %}" alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h5 class="card-title font-weight-bold">Mohiuddin Mohi</h5>
+                            <p class="card-text">Chief Financial Officer at MBSTU BAZAR</p>
+
+                            <div style="font-size:20px">
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-linkedin"></i></a>
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col"> <hr></div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 w3-light-gray p-4">
+        <div align="middle">
+            <div class="fb-page" data-href="https://www.facebook.com/mbstubazar" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/mbstubazar" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/mbstubazar">MBSTU Bazar</a></blockquote></div>
+            <!--<img src="{% static 'images/default_map.jpg' %}" class="card-img-top img-fluid " alt="...">-->
+
+        </div>
+            <br>
+            <div class="card p-2 bg-info">
+                <div>Email us at <span class="text-danger">info@mbstubazar.com</span></div>
+                <div>Call us <strong>+88017xxxxxxxx</strong></div>
+                <address>
+                    Address: Santosh, Tangail-1902, Bangladesh
+                </address>
+            </div>
+
+    </div>
+
+</div>
+{%endblock%}

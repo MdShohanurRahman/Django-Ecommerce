@@ -1,0 +1,87 @@
+{% extends 'main_apps/base.html' %}
+{% load staticfiles %}
+
+{% block stylesheet %}
+{% endblock %}
+{% block title %}{{ block.super }}| My Cart {% endblock %}
+
+{% block content %}
+
+    <div class="page_container container">
+        {% with total_items=cart|length %}
+        <div class="row" style="margin-top: 6%">
+
+                {% if cart|length > 0 %}
+                <h3 class="text-dark"><ins>My Shopping Cart</ins></h3>
+                <div class="table-responsive">
+                <table class="table table-bordered table-hover ">
+                <thead style="background-color: #adfab5">
+                <tr>
+                    <th>Product Image</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in cart %}
+                    {% with product=item.product %}
+                        <tr>
+                            <td>
+                                <div class="product-image">
+                                    <a href="{% url 'shop:product_detail' product.id product.slug %}">
+                                        <img src="{% if product.image %} {{ product.image.url }} {% else %} {% static '' %} {% endif %}"
+                                             alt="..." style="height: 100px; width: auto">
+                                    </a>
+
+                                </div>
+                            </td>
+
+                            <td>
+                                <form action="{% url "cart:cart_add" product.id %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="btn-group">
+                                        {{ item.update_quantity_form.quantity }}
+                                        {{ item.update_quantity_form.update }}
+                                        <button class="btn btn-outline-success btn-sm" type="submit"><i
+                                                class="far fa-edit"> update</i></button>
+
+                                        <a class="btn btn-outline-danger btn-sm"
+                                           href="{% url "cart:cart_remove" product.id %}"><i
+                                                class="far fa-times-circle"> remove</i></a>
+                                    </div>
+                                </form>
+                            </td>
+                            <td>BDT {{ item.price }}</td>
+                            <td>BDT {{ item.total_price }}</td>
+                        </tr>
+                    {% endwith %}
+                {% endfor %}
+
+
+                <tr style="background-color: #adfab5">
+                    <td><b>Total Cost</b></td>
+                    <td colspan="2"></td>
+                    <td colspan="num"><b>BDT {{ cart.get_total_price }}</b></td>
+                </tr>
+                </tbody>
+            </table>
+                </div>
+
+            <div class="my-3">
+                <p class="text-right">
+                <a href="{% url 'shop:product_list' %}" class="btn btn-primary">Continue Shopping</a>
+                <a href="{% url 'orders:order_create' %}" class="btn btn-info">Checkout</a>
+            </p>
+            </div>
+        </div>
+        {% else %}
+               <div class="container fluid jumbotron alert-info text-center h3">
+                   you have not shopping with us yet
+                   <p class="mt-3"><a href="{% url 'shop:product_list' %}" class="btn btn-primary">Continue Shopping</a></p>
+               </div>
+
+            {% endif %}
+    </div>
+    {% endwith %}
+{% endblock %}

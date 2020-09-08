@@ -1,0 +1,34 @@
+{% load staticfiles %}
+
+
+<!-- Banner -->
+<div class="banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="banner_item align-items-center"
+                     style="background-image:url({%static 'images/banner_1.png'%})">
+                    <div class="banner_category">
+                        <a href="{% url 'mainapp:tuition_list' %}">Hire Tutor</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="banner_item align-items-center"
+                     style="background-image:url({%static 'images/banner_2.png'%})">
+                    <div class="banner_category">
+                        <a href="{% url 'mainapp:mes_list' %}">Find Mess</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="banner_item align-items-center"
+                     style="background-image:url({%static 'images/banner_3.png'%})">
+                    <div class="banner_category">
+                        <a href="{% url 'shop:product_list' %}">Fast Shopping</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

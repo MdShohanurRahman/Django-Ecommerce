@@ -1,0 +1,94 @@
+{% extends 'main_apps/base.html' %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+{% block title %}
+  {{ block.super }}| tuition-service
+{% endblock %}
+{% block stylesheet %}
+  <style>
+  body{
+  background-color: rgb(246, 246, 246);
+  }
+  
+  @media screen and (max-width: 575px) {
+  
+  .blog-title{
+  font-size: 25px;
+  }
+  }
+  
+  .text-shadow{
+  
+  box-shadow: 0px 2px 5px grey;
+  }
+  .hr {
+  border: 1.5px solid red;
+  }
+
+
+  </style>
+  {%endblock%}
+  {%block content%}
+  <div class="page_container" >
+
+    <p class="lead blog-description">
+    </p>
+
+    <div>
+      <div class="row">
+        <div class="col-sm-8 blog-main">
+          <div class="card w3-center">
+            <div class="card-body">
+              <div class="h1 text-capitalize blog_title w3-text-blue-gray font-weight-bold">{{author.first_name}} {{author.last_name}}</div>
+              <div class="btn-group btn-group-sm disabled " role="group" aria-label="Basic example">
+                <button type="button" class="btn rounded btn-sm badge-info ml-2"><i class="fas fa-mobile-alt"> {{author.contact}}</i></button>
+                <a class="btn rounded btn-sm badge w3-indigo ml-2" href="{{ author.facebook_id }}"><i class="fab fa-facebook-messenger"></i></a>
+                <a class="btn rounded btn-sm badge w3-blue ml-2" href="https://www.facebook.com/sharer/sharer.php?u={{request.build_absolute_uri}}"><i class="fas fa-share-alt"></i></a>
+              </div>
+            </div>
+          </div>
+          <!-- /.blog-post -->
+          <div class="blog-post text-justify card my-3">
+            <div class="card-body">
+              <h3 class="text-info">Tuition Info:</h3>
+              	<div class="list-unstyled">
+              		<li><b>Qualification:</b> B. Sc in {{post.department}}</li>
+              		<li><b>Area Coverage:</b> Only Tangail</li>
+              		<li><b>Expected Minimum Salary:</b> {{post.salary}}৳/month (Negotiable)</li>
+
+              		<li><b>Tutor Status:</b>{%if post.check%} Available {%else%}Not Availabe{%endif%}</li>
+              		<li><b>Days per week:</b> {{post.days_in_week}} days/week</li>
+              	</div>
+              	<hr>
+              <div>{{ post.description|safe }}</div>
+            </div>
+          </div>
+          <!-- /.end blog-post -->
+        </div>
+        <!-- /start blog-sidebar -->
+        <div class="col-sm-4 align-content-center blog-sidebar p-3 card">
+          <div class="sidebar-module sidebar-module-inset mb-2">
+            <strong class="h4"><ins>About Me</ins></strong>
+            <ul class="list-unstyled list-group-flush mt-2 w3-text-dark-gray">
+                <li>Tutor_ID #{{author.id}}</li>
+              <li>Department of {{ post.department }}, MBSTU</li>
+              <li>{{ post.semester }}</li>
+              <li>{{ author.present_address }}</li>
+              <li class="text-success"><small>member since- {{author.name.date_joined|date}}</small></li>
+            </ul>
+          </div>
+          <hr  class="hr">
+          <div class="tag">
+            <strong class="h4"><u>Subjects Tags</u></strong><br><br>
+            {% for p in tag %}
+              <p class="w3-tag mx-auto rounded">{{p.category_name}}</p>
+            {% endfor %}
+          </div>
+          </div><!-- /.blog-sidebar -->
+          </div><!-- /.row -->
+          </div><!-- /.container -->
+        </div>
+        {%endblock%}
+        {%block footer%}
+        {% include 'plugin/footer.html' %}
+        {%endblock%}
