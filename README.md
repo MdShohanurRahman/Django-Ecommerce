@@ -11,22 +11,26 @@
 ---
 
 # Short Description:
-Django-Ecom is an online ecommerce platform. It's not only an online shopping site but also a tution media service. Students can update their tution profiles. And marketing themselves. 
+This is a web-based e-commerce project built using Django, a high-level Python web framework. The project aims to provide an easy-to-use platform for online shopping and selling, where customers can browse and purchase products from various categories and vendors.
 
 
 # Features
 
-
-*  Full Authentication Functionality
-*  Forget password, reset password , email varification 
-*  Add to cart functionality
+*  User authentication and authorization
+*  Product search and filtering
+*  Product categorization and sorting
+*  Product reviews and ratings
 *  Email Notification
-*  Comment and reply comment functionility
+*  Shopping cart and checkout
 *  Users Blog -> User can add post, update and Delete  
-*  Ckeditor functionality
+*  Order management
+*  Admin dashboard for managing products, categories, and orders
 
-
-
+## Technologies Used
+ 1. Django
+ 2. MySql
+ 3. HTML/CSS/JavaScript
+ 4. Bootstrap
  
 
 ## Running the Project Locally
